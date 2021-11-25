@@ -47,6 +47,8 @@ const IngredientForm: React.FC = () => {
       const ingredient = { ...currentList[index], quantity: value };
       currentList[index] = ingredient;
       setIngredientList(currentList);
+
+      console.log(ingredientList);
     }
 
     if (typeof param === "string") {
@@ -74,6 +76,7 @@ const IngredientForm: React.FC = () => {
           <Field id="ingredient" type="input" name="ingredient" />
           <ErrorMessage name="ingredient" />
           <button type="submit">Add</button>
+          <button onClick={() => console.log(ingredientList)}>Submit</button>
         </Form>
       </Formik>
 
