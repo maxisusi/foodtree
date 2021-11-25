@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { HtmlProps } from "next/dist/shared/lib/utils";
 
 interface IngredientList {
   id: number;
@@ -37,24 +38,21 @@ const IngredientForm: React.FC = () => {
     setIngredientList(newList);
   };
 
-  function handleChange(id: number, param: string | number, event: any): void {
+  function handleChange<T>(id: number, param: T, event: any): void {
     const value = event.target.value;
     const index = ingredientList.findIndex((item) => item.id == id);
-
     const currentList = [...ingredientList];
 
     if (typeof param === "number") {
-      const ingredient = { ...currentList[index], quantity: value };
+      const ingredient = { ...currentList[index], quantity: parseFloat(value) };
       currentList[index] = ingredient;
-      setIngredientList(currentList);
-
-      console.log(ingredientList);
+      return setIngredientList(currentList);
     }
 
     if (typeof param === "string") {
       const ingredient = { ...currentList[index], mesurement: value };
       currentList[index] = ingredient;
-      setIngredientList(currentList);
+      return setIngredientList(currentList);
     }
   }
 
@@ -76,7 +74,9 @@ const IngredientForm: React.FC = () => {
           <Field id="ingredient" type="input" name="ingredient" />
           <ErrorMessage name="ingredient" />
           <button type="submit">Add</button>
-          <button onClick={() => console.log(ingredientList)}>Submit</button>
+          <button type="button" onClick={() => console.log(ingredientList)}>
+            Submit
+          </button>
         </Form>
       </Formik>
 
@@ -87,12 +87,13 @@ const IngredientForm: React.FC = () => {
             <input
               type="number"
               min="1"
-              defaultValue={quantity}
-              onChange={(value) => handleChange(id, quantity, value)}
+              defaultValue="1"
+              onChange={(elem) => handleChange<number>(id, quantity, elem)}
             />
             <select
-              defaultValue={mesurement}
-              onChange={(value) => handleChange(id, mesurement, value)}>
+              defaultValue="l"
+              onChange={(elem) => handleChange<string>(id, mesurement, elem)}>
+              <option value="unit">unit</option>
               <option value="l">l</option>
               <option value="ml">ml</option>
               <option value="kg">kg</option>
