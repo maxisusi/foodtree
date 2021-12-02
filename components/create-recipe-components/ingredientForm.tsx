@@ -24,12 +24,19 @@ const IngredientForm: React.FC = () => {
     const currentList = [...ingredientList];
     const newIngredient: IngredientList = {
       id: uuidv4(),
-      mesurement: "N/A",
+      mesurement: "l",
       name: `${ingredient}`,
       quantity: 1,
     };
     currentList.push(newIngredient);
     setIngredientList(currentList);
+  };
+
+  const handleSaveLocal = (): void => {
+    window.sessionStorage.setItem(
+      "ingredients",
+      JSON.stringify(ingredientList)
+    );
   };
 
   const handleDelete = (id): void => {
@@ -74,7 +81,7 @@ const IngredientForm: React.FC = () => {
           <Field id="ingredient" type="input" name="ingredient" />
           <ErrorMessage name="ingredient" />
           <button type="submit">Add</button>
-          <button type="button" onClick={() => console.log(ingredientList)}>
+          <button type="button" onClick={handleSaveLocal}>
             Submit
           </button>
         </Form>

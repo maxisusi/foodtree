@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import TextInput from "./textInput";
+import React from "react";
 
 interface RecipeValues {
   recipeName: string;
@@ -14,7 +15,7 @@ interface RecipeValues {
 const validationForm = Yup.object().shape({
   recipeName: Yup.string()
     .min(2, "Too short!")
-    .max(15, "Too long!")
+    .max(40, "Too long!")
     .required("Recipe name is required"),
   typeFood: Yup.string().required("Type of food is required"),
   prepTime: Yup.string().required("Preparation time is required"),
@@ -41,7 +42,9 @@ const RecipeForm: React.FC = () => {
     <div>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          window.sessionStorage.setItem("recipe", JSON.stringify(values));
+        }}
         validationSchema={validationForm}>
         <Form>
           {/* Recipe Name */}
