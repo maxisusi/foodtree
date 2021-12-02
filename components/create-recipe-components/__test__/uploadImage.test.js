@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
+
 import UploadImages from "../uploadImages";
 
 const submitForm = () => {
@@ -9,20 +9,19 @@ const submitForm = () => {
   fireEvent.click(submitForm);
 };
 
+beforeEach(() => {
+  render(<UploadImages />);
+});
+
 describe("Upload images form", () => {
-  it("renders the image upload form", () => {
-    render(<UploadImages />);
-  });
+  it("renders the image upload form", () => {});
 
   it("renders the image form", () => {
-    render(<UploadImages />);
     const imageLabel = screen.getByLabelText(/upload image/i);
     expect(imageLabel).toBeInTheDocument();
   });
 
   it("upload multiple files", async () => {
-    render(<UploadImages />);
-
     const files = [
       new File(["hello"], "hello.png", { type: "image/png" }),
       new File(["there"], "there.png", { type: "image/png" }),
@@ -44,8 +43,6 @@ describe("Upload images form", () => {
   });
 
   it("renders an error message when no images has been sumitted", async () => {
-    render(<UploadImages />);
-
     submitForm();
 
     const errorMessage = await screen.findByText(/an image is required/i);
@@ -53,8 +50,6 @@ describe("Upload images form", () => {
   });
 
   it("clears the image list", async () => {
-    render(<UploadImages />);
-
     const files = [
       new File(["hello"], "hello.png", { type: "image/png" }),
       new File(["there"], "there.png", { type: "image/png" }),
@@ -69,5 +64,11 @@ describe("Upload images form", () => {
 
     const errorMessage = await screen.findByText(/an image is required/i);
     expect(errorMessage).toBeInTheDocument();
+  });
+
+  it("disabled the clear button when they're is not image", async () => {
+    const clearButton = screen.getByRole("button", { name: /clear/i });
+
+    expect(clearButton).toHaveAttribute("disabled");
   });
 });

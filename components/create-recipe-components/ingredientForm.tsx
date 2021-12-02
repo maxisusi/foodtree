@@ -81,7 +81,10 @@ const IngredientForm: React.FC = () => {
           <Field id="ingredient" type="input" name="ingredient" />
           <ErrorMessage name="ingredient" />
           <button type="submit">Add</button>
-          <button type="button" onClick={handleSaveLocal}>
+          <button
+            disabled={ingredientList.length >= 1 ? false : true}
+            type="button"
+            onClick={handleSaveLocal}>
             Submit
           </button>
         </Form>

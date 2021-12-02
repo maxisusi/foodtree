@@ -10,14 +10,14 @@ import userEvent from "@testing-library/user-event";
 
 import IngredientForm from "../ingredientForm";
 
+beforeEach(() => {
+  render(<IngredientForm />);
+});
+
 describe("Ingredient Form", () => {
-  it("renders the ingredient component", () => {
-    render(<IngredientForm />);
-  });
+  it("renders the ingredient component", () => {});
 
   it("renders an error message when no ingredients has been submitted or below 1", async () => {
-    render(<IngredientForm />);
-
     const ingredientInput = screen.getByLabelText(/add ingredient/i);
     const submitButton = screen.getByRole("button", { name: /add/i });
 
@@ -34,8 +34,6 @@ describe("Ingredient Form", () => {
   });
 
   it("resets the form after submission without any error message", async () => {
-    render(<IngredientForm />);
-
     const ingredientInput = screen.getByLabelText(/add ingredient/i);
     const submitButton = screen.getByRole("button", { name: /add/i });
 
@@ -55,8 +53,6 @@ describe("Ingredient Form", () => {
   });
 
   it("creates an ingredient", async () => {
-    render(<IngredientForm />);
-
     const ingredientInput = screen.getByLabelText(/add ingredient/i);
     const submitButton = screen.getByRole("button", { name: /add/i });
 
@@ -68,8 +64,6 @@ describe("Ingredient Form", () => {
   });
 
   it("deletes an ingredient", async () => {
-    render(<IngredientForm />);
-
     const ingredientInput = screen.getByLabelText(/add ingredient/i);
     const submitButton = screen.getByRole("button", { name: /add/i });
 
@@ -82,5 +76,11 @@ describe("Ingredient Form", () => {
     fireEvent.click(deleteButton);
 
     expect(ingredientOutput).not.toBeInTheDocument();
+  });
+
+  it("disable the submit button when there is no ingredient", () => {
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+
+    expect(submitButton).toHaveAttribute("disabled");
   });
 });

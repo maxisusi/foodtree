@@ -14,16 +14,17 @@ const submitForm = () => {
   fireEvent.click(submitButton);
 };
 
+beforeEach(() => {
+  render(<RecipeForm />);
+});
+
 describe("Recipe Form", () => {
-  it("render the form component", () => {
-    render(<RecipeForm />);
-  });
+  it("render the form component", () => {});
 });
 
 describe("Unit test the fields", () => {
   //Testing - "Recipe's name"
   it("renders error messsage when the recipe name empty under 2 or over 15 characters", async () => {
-    render(<RecipeForm />);
     const recipeNameInput = screen.getByLabelText(/recipe's name/i);
 
     //Characters is under 2
@@ -56,7 +57,6 @@ describe("Unit test the fields", () => {
 
   //Testing - "Type of food"
   it("changes the type of food", async () => {
-    render(<RecipeForm />);
     const typeFoodInput = screen.getByLabelText(/type of food/i);
 
     await waitFor(() => {
@@ -65,8 +65,6 @@ describe("Unit test the fields", () => {
     expect(typeFoodInput.value).toBe("dessert");
   });
   it("renders error message when the type of food has not been selected", async () => {
-    render(<RecipeForm />);
-
     submitForm();
     const errorMessage = await screen.findByText(/type of food is required/i);
     expect(errorMessage).toBeInTheDocument();
@@ -74,8 +72,6 @@ describe("Unit test the fields", () => {
 
   //Testing - "Preparation time"
   it("renders error message when the preparation time is empty", async () => {
-    render(<RecipeForm />);
-
     submitForm();
     const errorMessage = await screen.findByText(
       /preparation time is required/i
@@ -85,8 +81,6 @@ describe("Unit test the fields", () => {
   });
 
   it("changes the preparation time", async () => {
-    render(<RecipeForm />);
-
     const prepTimeInput = screen.getByLabelText(/preparation time/i);
 
     await waitFor(() => {
@@ -97,16 +91,12 @@ describe("Unit test the fields", () => {
 
   //Testing - "Cooking time"
   it("renders error message when the cooking time is empty", async () => {
-    render(<RecipeForm />);
-
     submitForm();
     const errorMessage = await screen.findByText(/cooking time is required/i);
 
     expect(errorMessage).toBeInTheDocument();
   });
   it("changes the cooking time", async () => {
-    render(<RecipeForm />);
-
     const cookTimeInput = screen.getByLabelText(/cooking time/i);
 
     await waitFor(() => {
@@ -117,16 +107,12 @@ describe("Unit test the fields", () => {
 
   //Testing - "Servings"
   it("renders an error message when the servings value is 0 or below", async () => {
-    render(<RecipeForm />);
-
     submitForm();
     const errorMessage = await screen.findByText(/servings are required/i);
     expect(errorMessage).toBeInTheDocument();
   });
 
   it("renders an error message when the servings is a string", async () => {
-    render(<RecipeForm />);
-
     const servingsInput = screen.getByLabelText(/servings/i);
 
     await waitFor(() => {
@@ -138,8 +124,6 @@ describe("Unit test the fields", () => {
   });
 
   it("renders an error message when the description is empty or below 10 characters", async () => {
-    render(<RecipeForm />);
-
     const descriptionInput = screen.getByLabelText(/description/i);
 
     submitForm();
