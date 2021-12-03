@@ -28,7 +28,7 @@ const validationForm = Yup.object().shape({
     .required("description is required"),
 });
 
-const RecipeForm: React.FC = () => {
+const RecipeForm = ({ count }) => {
   const initialValues: RecipeValues = {
     recipeName: "",
     typeFood: "",
@@ -44,6 +44,7 @@ const RecipeForm: React.FC = () => {
         initialValues={initialValues}
         onSubmit={(values) => {
           window.sessionStorage.setItem("recipe", JSON.stringify(values));
+          count(1);
         }}
         validationSchema={validationForm}>
         <Form>
@@ -79,7 +80,7 @@ const RecipeForm: React.FC = () => {
           {/* Description */}
           <TextInput id="description" title="Description" as="textarea" />
 
-          <button>Submit</button>
+          <button data-testid="recipe-form-submit">Submit</button>
         </Form>
       </Formik>
     </div>

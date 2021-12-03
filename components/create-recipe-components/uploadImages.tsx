@@ -1,5 +1,5 @@
 import { Formik, Form, ErrorMessage } from "formik";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {} from "react";
 import * as Yup from "yup";
 
@@ -7,10 +7,9 @@ const validationForm = Yup.object().shape({
   images: Yup.array().min(1, "An image is required").nullable(),
 });
 
-const UploadImages = () => {
+const UploadImages = ({ count }) => {
   const fileInput = useRef(null);
-  const disabledButton = useRef(null);
-  const [clearButton, setClearButton] = useState(false);
+
   const storeImageLocal = ({ values }): void => {
     // Reformat the values to be able to store it locally
     const myArray = [];
@@ -45,7 +44,10 @@ const UploadImages = () => {
       initialValues={{
         images: [],
       }}
-      onSubmit={(values) => storeImageLocal({ values })}>
+      onSubmit={(values) => {
+        storeImageLocal({ values });
+        count(2);
+      }}>
       {(props) => (
         <Form>
           <label htmlFor="images">Upload image</label>
