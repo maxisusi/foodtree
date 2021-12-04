@@ -9,7 +9,7 @@ const CreateRecipe = () => {
   const [components, setComponents] = useState([
     <RecipeForm count={setCounter} key={0} />,
     <UploadImages count={setCounter} key={1} />,
-    <IngredientForm key={2} />,
+    <IngredientForm count={setCounter} key={2} />,
   ]);
 
   return <div>{components.filter((elem) => elem.key == counter)}</div>;

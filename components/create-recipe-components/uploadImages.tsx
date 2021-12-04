@@ -28,6 +28,7 @@ const UploadImages = ({ count }) => {
     }
 
     window.sessionStorage.setItem("images", JSON.stringify(myArray));
+    count(2);
   };
 
   const handleReset = (props) => {
@@ -46,7 +47,6 @@ const UploadImages = ({ count }) => {
       }}
       onSubmit={(values) => {
         storeImageLocal({ values });
-        count(2);
       }}>
       {(props) => (
         <Form>
@@ -68,6 +68,7 @@ const UploadImages = ({ count }) => {
             Clear
           </button>
           <button type="submit">Add</button>
+          <button onClick={() => count(0)}>Back</button>
         </Form>
       )}
     </Formik>

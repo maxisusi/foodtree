@@ -17,7 +17,7 @@ const ingredientValidator = Yup.object().shape({
     .min(2, "Too short!"),
 });
 
-const IngredientForm: React.FC = () => {
+const IngredientForm = ({ count }) => {
   const [ingredientList, setIngredientList] = useState<IngredientList[]>([]);
 
   const handleSubmit = ({ ingredient }): void => {
@@ -81,6 +81,7 @@ const IngredientForm: React.FC = () => {
           <Field id="ingredient" type="input" name="ingredient" />
           <ErrorMessage name="ingredient" />
           <button type="submit">Add</button>
+          <button onClick={() => count(1)}>Back</button>
           <button
             disabled={ingredientList.length >= 1 ? false : true}
             type="button"

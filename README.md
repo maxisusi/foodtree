@@ -4,8 +4,8 @@
   - [x] Make the ingredient list states change when inputing new values in ingredient form
   - [x] Can submit the form with all the datas
 - [x] Save datas on Session Storage
-- [ ] Create a carousel form
-- [ ] Store datas locally and generate a
+- [x] Create a carousel form
+- [ ] Get datas from the sessions storage if already saved
 - [ ] Connect to a Firestore database
 - [ ] Refactor with Chakra-ui
 - [ ] Work on the "search ingredient" component
